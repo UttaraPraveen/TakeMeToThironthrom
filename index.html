@@ -1,580 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TVT - Trivandrum Homesickness Cure</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg-color: #f4f0ea;
-            --text-main: #2c2a25;
-            --accent-hover: #e3ddce;
-            --border-color: #c9c5bc;
-        }
-        
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            /* Soft noise texture overlay */
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        h1, h2, h3, .font-serif {
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Pill Navigation Button */
-        .nav-pill {
-            border: 1px solid var(--border-color);
-            background: transparent;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(4px);
-        }
-        .nav-pill:hover, .nav-pill.active {
-            background-color: var(--accent-hover);
-            border-color: #a39f97;
-        }
-
-        /* View Transitions */
-        .view-section {
-            display: none;
-            opacity: 0;
-            transform: translateY(15px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .view-section.active {
-            display: flex;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Floating Animation */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        .animate-float {
-            animation: float 4s ease-in-out infinite;
-        }
-
-        /* Soft Glass Card */
-        .soft-card {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
-            border-radius: 24px;
-        }
-
-        /* Pill Tag */
-        .pill-tag {
-            border: 1px solid var(--border-color);
-            background: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            letter-spacing: 0.05em;
-        }
-
-        /* Custom Range Slider */
-        input[type=range] {
-            -webkit-appearance: none;
-            width: 100%;
-            background: transparent;
-        }
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 24px;
-            width: 40px;
-            border-radius: 12px;
-            background: var(--text-main);
-            cursor: pointer;
-            margin-top: -10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: transform 0.2s;
-        }
-        input[type=range]::-webkit-slider-thumb:hover {
-            transform: scale(1.1);
-        }
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 4px;
-            cursor: pointer;
-            background: var(--border-color);
-            border-radius: 2px;
-        }
-
-        /* Polaroid */
-        .polaroid {
-            background: white;
-            padding: 16px 16px 48px 16px;
-            box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0,0,0,0.05);
-            border: 1px solid #eaeaea;
-            transition: all 0.4s ease;
-            cursor: pointer;
-        }
-        .polaroid:hover {
-            transform: scale(1.02) rotate(1deg);
-            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Game Bus Animation */
-        @keyframes drive {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-        .game-road {
-            background: repeating-linear-gradient(90deg, #d4d0c5 0px, #d4d0c5 20px, transparent 20px, transparent 40px);
-            background-size: 200% 100%;
-            animation: drive 0.5s linear infinite;
-        }
-        .game-braking .game-road {
-            animation-play-state: paused;
-        }
-        .game-braking {
-            background-color: #ffb3b3 !important;
-            transition: background-color 0.1s;
-        }
-        
-        /* Input overrides */
-        input[type="text"], textarea {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid var(--border-color);
-            border-radius: 0;
-            box-shadow: none;
-        }
-        input[type="text"]:focus, textarea:focus {
-            outline: none;
-            border-bottom-color: var(--text-main);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TakeMeToThironthrom</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbf3df;--ink:#1d2a1f;--card:#fffaf0;--g:#1f8a57;--y:#f4b223;--r:#e5533d;--sh:#1d2a1f;--warn:#ffb3a7;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121c16;--ink:#f6ecd2;--card:#1c2b22;--sh:#000;--warn:#6b2b22}}
+:root[data-theme="dark"]{--bg:#121c16;--ink:#f6ecd2;--card:#1c2b22;--sh:#000;--warn:#6b2b22}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Space Grotesk',system-ui,sans-serif;min-height:100vh;background-image:radial-gradient(color-mix(in srgb,var(--ink) 14%,transparent) 1.2px,transparent 1.2px);background-size:22px 22px;overflow-x:hidden}
+h1,h2,.fr{font-family:'Fraunces',Georgia,serif}
+header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 16px;border-bottom:6px double var(--y)}
+.logo{font-family:'Fraunces',Georgia,serif;font-weight:800;font-size:clamp(18px,5vw,26px);line-height:1}
+.logo span{color:var(--g)}
+.chip{border:2.5px solid var(--ink);border-radius:999px;padding:5px 12px;font-weight:700;font-size:13px;background:var(--card);box-shadow:2px 2px 0 var(--sh);white-space:nowrap}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:10px 14px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);scrollbar-width:none}
+.tab{font:inherit;font-weight:700;font-size:13px;background:var(--card);color:var(--ink);border:2.5px solid var(--ink);border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap;box-shadow:2px 2px 0 var(--sh);transition:.12s}
+.tab.on{background:var(--ink);color:var(--bg);transform:translateY(2px);box-shadow:none}
+.view{display:none;max-width:560px;margin:0 auto;padding:16px 16px 24px}
+.view.on{display:block;animation:in .35s}
+@keyframes in{from{opacity:0;transform:translateY(14px)}}
+.card{background:var(--card);border:2.5px solid var(--ink);border-radius:22px;box-shadow:5px 5px 0 var(--sh);padding:20px;margin-bottom:16px}
+.btn{font:inherit;font-weight:700;background:var(--y);color:#1d2a1f;border:2.5px solid var(--ink);border-radius:999px;padding:10px 18px;box-shadow:3px 3px 0 var(--sh);cursor:pointer;transition:.1s;touch-action:manipulation}
+.btn:active{transform:translate(3px,3px);box-shadow:none}
+.btn.g{background:var(--g);color:#fff}.btn.r{background:var(--r);color:#fff}.btn.w{background:var(--card);color:var(--ink)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+input[type=text]{flex:1;min-width:0;font:inherit;padding:11px 14px;border:2.5px solid var(--ink);border-radius:14px;background:var(--card);color:var(--ink)}
+input[type=text]:focus{outline:3px solid var(--y)}
+h1{font-size:clamp(36px,11vw,58px);line-height:1;margin:6px 0 8px;font-weight:800}
+h1 em{color:var(--g)}
+h2{font-size:30px;margin:4px 0 6px}
+.sub{opacity:.75;margin:0 0 16px}
+.big{font-size:84px;text-align:center;line-height:1.1;transition:transform .2s}
+.lvl{text-align:center;font-weight:700;margin:4px 0}
+.say{font-family:'Fraunces',Georgia,serif;font-size:22px;text-align:center;min-height:90px;display:flex;align-items:center;justify-content:center;margin:8px 0}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:10px;background:linear-gradient(90deg,var(--g),var(--y),var(--r));border:2.5px solid var(--ink);border-radius:99px;margin:14px 0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:34px;border-radius:50%;background:var(--card);border:3px solid var(--ink);cursor:grab;box-shadow:2px 2px 0 var(--sh)}
+input[type=range]::-moz-range-thumb{width:30px;height:30px;border-radius:50%;background:var(--card);border:3px solid var(--ink)}
+.shake{animation:shk .12s infinite}
+@keyframes shk{25%{transform:translate(-3px,2px) rotate(-1deg)}75%{transform:translate(3px,-2px) rotate(1deg)}}
+.chat{max-height:42vh;min-height:140px;overflow-y:auto;padding:4px}
+.b{max-width:86%;padding:10px 14px;border:2px solid var(--ink);border-radius:16px;margin:8px 0;animation:in .3s;overflow-wrap:anywhere}
+.me{margin-left:auto;background:var(--y);color:#1d2a1f;border-bottom-right-radius:4px}
+.bot{background:var(--card);border-bottom-left-radius:4px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.chips .chip{cursor:pointer;font:inherit;font-size:12px;color:var(--ink)}
+.cupw{position:relative;text-align:center;height:150px}
+.cup{font-size:110px;background:none;border:none;cursor:pointer;line-height:1;animation:fl 3.5s ease-in-out infinite}
+.cup:active{transform:scale(.9) rotate(-6deg)}
+@keyframes fl{50%{transform:translateY(-10px)}}
+.steam{position:absolute;top:0;font-size:22px;opacity:0;animation:st 2.4s infinite}
+@keyframes st{0%{opacity:0;transform:translateY(40px)}40%{opacity:.7}100%{opacity:0;transform:translateY(-10px) scale(1.4)}}
+.news{font-family:'Fraunces',Georgia,serif;font-size:21px;min-height:130px;padding:6px}
+.tag{display:inline-block;background:var(--r);color:#fff;font:700 11px 'Space Grotesk',sans-serif;letter-spacing:.1em;padding:3px 10px;border-radius:6px;margin-bottom:8px}
+.scene{height:200px;position:relative;overflow:hidden;border:2.5px solid var(--ink);border-radius:20px;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:background .1s}
+.scene.brk{background:var(--warn);animation:shk .1s infinite}
+.pas{font-size:64px;line-height:1;transition:transform .15s}
+.bus{font-size:72px;line-height:1;animation:bob .5s ease-in-out infinite;margin-top:-8px}
+.scene.stop .bus{animation:none}
+@keyframes bob{50%{transform:translateY(-4px)}}
+.road{position:absolute;bottom:0;left:0;right:0;height:30px;background:var(--ink)}
+.road::after{content:"";position:absolute;top:13px;left:0;right:0;height:4px;background:repeating-linear-gradient(90deg,var(--y) 0 24px,transparent 24px 48px);background-size:48px 4px;animation:rd .35s linear infinite}
+.scene.stop .road::after{animation-play-state:paused}
+@keyframes rd{to{background-position:-48px 0}}
+.warn{position:absolute;top:10px;font:800 28px 'Fraunces',serif;color:var(--r);opacity:0}
+.scene.brk .warn{opacity:1}
+.bar{height:16px;border:2px solid var(--ink);border-radius:99px;overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;width:100%;background:var(--g);transition:width .05s}
+.stats{display:flex;justify-content:space-between;font-weight:700;margin:12px 0 6px}
+.holdbtn{width:100%;padding:20px;font-size:17px;user-select:none;-webkit-user-select:none}
+.pol{background:#fff;color:#1d2a1f;padding:14px 14px 18px;border:2.5px solid var(--ink);border-radius:6px;box-shadow:6px 6px 0 var(--sh);transition:transform .3s;cursor:pointer;text-align:center;user-select:none}
+.pol .e{font-size:90px;background:#f3ecd9;border-radius:4px;padding:14px 0;margin-bottom:12px}
+.pol p{font-family:'Fraunces',serif;font-size:20px;margin:0;min-height:90px;display:flex;align-items:center;justify-content:center}
+.rcpt{font-family:ui-monospace,Menlo,monospace;background:#fffef6;color:#1d2a1f;border:2px dashed #1d2a1f;padding:16px;margin-top:14px;animation:in .3s}
+.fare{font-size:40px;font-weight:700;text-align:center;margin:6px 0}
+.vsrow{margin:10px 0;font-weight:700}
+.vsb{height:22px;border:2px solid var(--ink);border-radius:99px;overflow:hidden;margin-top:4px}
+.vsb i{display:block;height:100%;width:0;transition:width 1.1s cubic-bezier(.2,.9,.3,1.2)}
+.stamp{display:inline-block;font:800 30px 'Fraunces',serif;color:var(--r);border:4px solid var(--r);padding:4px 14px;border-radius:10px;transform:rotate(-6deg);animation:stmp .4s both;margin:10px 0}
+@keyframes stmp{from{transform:rotate(-20deg) scale(2.4);opacity:0}}
+.foot{max-width:560px;margin:0 auto;padding:0 16px 30px;text-align:center}
+.foot .chip{display:inline-flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;border-radius:18px;white-space:normal}
+.foot b{font:800 24px 'Fraunces',serif}
+.pt{position:fixed;font-size:26px;pointer-events:none;z-index:50;animation:pt .95s ease-out forwards}
+@keyframes pt{to{transform:translate(var(--dx),var(--dy)) rotate(var(--rt));opacity:0}}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:700;opacity:0;transition:.3s;z-index:60;max-width:92vw;text-align:center;pointer-events:none}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+</style>
 </head>
-<body class="relative">
+<body>
+<header>
+  <div class="logo">TakeMeTo<span>Thironthrom</span> 🚌</div>
+  <div class="row"><span class="chip" title="Chaya points">☕ <span id="pts">0</span> · <span id="rank">Tourist</span></span><button class="chip" id="theme" style="cursor:pointer;font:inherit;color:var(--ink)">🌓</button></div>
+</header>
+<nav class="tabs" id="tabs"></nav>
 
-    <nav class="w-full p-6 flex flex-col items-center justify-center relative z-20">
-        <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto text-sm">
-            <button onclick="nav('home')" class="nav-pill active px-5 py-2 rounded-full uppercase tracking-wider text-xs font-semibold">Home</button>
-            <button onclick="nav('echo')" class="nav-pill px-5 py-2 rounded-full uppercase tracking-wider text-xs font-semibold">Echo</button>
-            <button onclick="nav('gossip')" class="nav-pill px-5 py-2 rounded-full uppercase tracking-wider text-xs font-semibold">Gossip</button>
-            <button onclick="nav('cityfast')" class="nav-pill px-5 py-2 rounded-full uppercase tracking-wider text-xs font-semibold">City Fast</button>
-            <button onclick="nav('food')" class="nav-pill px-5 py-2 rounded-full uppercase tracking-wider text-xs font-semibold">Food</button>
-            <button onclick="nav('auto')" class="nav-pill px-5 py-2 rounded-full uppercase tracking-wider text-xs font-semibold">Auto GPS</button>
-            <button onclick="nav('compare')" class="nav-pill px-5 py-2 rounded-full uppercase tracking-wider text-xs font-semibold">Defeater</button>
-        </div>
-    </nav>
+<section class="view on" id="v-home">
+  <h1>Take me to <em>Thironthrom</em></h1>
+  <p class="sub">Homesick aano? Sheri, ivide irikku appi. Nammukku set aakkam.</p>
+  <div class="card">
+    <div class="lvl">Homesick-o-meter: <span id="lv">Level 1</span></div>
+    <div class="big" id="me">☕</div>
+    <input type="range" min="1" max="10" value="1" id="sl" aria-label="Homesickness level">
+    <div class="say" id="say">Mild. Oru chaya-yude size-ulla vellyam mathram.</div>
+    <div class="row" style="justify-content:center"><button class="btn g" id="rx">💊 Prescribe me</button></div>
+  </div>
+</section>
 
-    <main class="flex-grow flex items-center justify-center p-6 w-full relative z-10 max-w-5xl mx-auto min-h-[60vh]">
-        
-        <!-- Home / Check-in -->
-        <div id="view-home" class="view-section active flex-col items-center text-center w-full max-w-xl">
-            <h1 class="text-7xl md:text-9xl mb-2 text-[#2c2a25] tracking-tight">TVT</h1>
-            <p class="font-serif italic text-lg md:text-xl text-gray-600 mb-12">For the violently homesick Trivandrumite.</p>
-            
-            <div class="soft-card p-8 md:p-12 w-full flex flex-col items-center">
-                <label class="uppercase tracking-widest text-xs font-semibold mb-8">How much are you missing TVM today?</label>
-                <input type="range" min="1" max="10" value="1" id="slider" class="w-full mb-8">
-                <div class="relative">
-                    <span id="slider-val-pill" class="pill-tag px-4 py-2 absolute -top-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap text-[#5a574f] transition-all">Level 1</span>
-                    <p id="slider-text" class="font-serif text-2xl md:text-3xl text-center min-h-[80px] flex items-center justify-center transition-opacity duration-300">
-                        Craving a Chaya
-                    </p>
-                </div>
-            </div>
-        </div>
+<section class="view" id="v-vent">
+  <h2>Vent Booth</h2>
+  <p class="sub">Appi nte kayyil ninte pariharam illa. Pakshe kelkkum.</p>
+  <div class="card">
+    <div class="chat" id="chat"><div class="b bot">Enthuvaadey! Parayu, ee city-ne kurichu entha kuzhappam? 🫖</div></div>
+    <div class="chips" id="vchips"></div>
+    <div class="row"><input type="text" id="vi" placeholder="Ee city-nte kuttam parayu..."><button class="btn" id="vb">Vent</button></div>
+  </div>
+</section>
 
-        <!-- Echo Chamber -->
-        <div id="view-echo" class="view-section flex-col items-center w-full max-w-md">
-            <div class="soft-card p-8 w-full flex flex-col relative">
-                <div class="absolute -top-4 -left-4 pill-tag px-4 py-1 uppercase font-bold text-[#5a574f]">:: venting booth</div>
-                
-                <h2 class="text-3xl font-serif mb-6 mt-4">The Echo Chamber</h2>
-                <textarea id="vent-input" rows="3" class="w-full bg-transparent text-lg resize-none mb-6 p-2 placeholder-gray-400" placeholder="Complain about your current city here..."></textarea>
-                
-                <button onclick="ventAction()" class="nav-pill self-end px-6 py-2 rounded-full uppercase tracking-wider text-xs font-semibold mb-6">Vent</button>
-                
-                <div id="vent-output" class="hidden text-xl font-serif italic text-center p-4 bg-white/40 rounded-xl border border-white/60 min-h-[80px] flex items-center justify-center transition-all">
-                </div>
-            </div>
-        </div>
+<section class="view" id="v-chaya">
+  <h2>Chaya Kada Live</h2>
+  <p class="sub">Chaya-kku oppam gossip. Cup-il thotto.</p>
+  <div class="card" style="text-align:center">
+    <div class="cupw"><span class="steam" style="left:42%">〰️</span><span class="steam" style="left:50%;animation-delay:.8s">〰️</span><span class="steam" style="left:58%;animation-delay:1.5s">〰️</span><button class="cup" id="cup" style="margin-top:20px">☕</button></div>
+    <div class="news" id="news"><span class="tag">BREAKING</span><br>Cup-il thotti gossip kelkku...</div>
+    <div class="row" style="justify-content:center"><button class="btn w" data-re="Ayyo! 😱">Ayyo! 😱</button><button class="btn w" data-re="Sathyam?! 👀">Sathyam?! 👀</button><button class="btn w" data-re="Ariyam, ariyam 😏">Ariyam 😏</button></div>
+  </div>
+</section>
 
-        <!-- Chaya Kada Gossip -->
-        <div id="view-gossip" class="view-section flex-col items-center w-full max-w-lg text-center">
-            <h2 class="text-4xl font-serif mb-12">Chaya Kada</h2>
-            
-            <div class="relative cursor-pointer animate-float mb-12" onclick="showGossip()">
-                <div class="text-8xl drop-shadow-xl select-none transform transition-transform hover:scale-105" id="tea-cup">☕</div>
-                <div class="pill-tag px-3 py-1 absolute -bottom-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap font-semibold">Tap for Gossip</div>
-            </div>
+<section class="view" id="v-bus">
+  <h2>City Fast Simulator</h2>
+  <p class="sub">Palayam to Statue. Brake varumbol pidikku. Pidichu pidichu kai kuzhayum.</p>
+  <div class="scene stop" id="scene"><div class="warn">SUDDEN BRAKE!</div><div class="pas" id="pas">🧍</div><div class="bus">🚌</div><div class="road"></div></div>
+  <div class="stats"><span>Brakes: <span id="sc">0</span></span><span>Best: <span id="bs">0</span></span></div>
+  <div class="bar"><i id="grip"></i></div>
+  <div id="gst" style="font-weight:700;text-align:center;margin-bottom:12px">Hold cheythu start cheyyu</div>
+  <button class="btn r holdbtn" id="hold">🧗 HOLD THE RAIL (Space)</button>
+  <p class="sub" style="text-align:center;margin-top:10px;font-size:13px">Brake varumbol pidichirikkanam. Pakshe eppozhum pidichal kai kuzhayum. Strategy aanu appi.</p>
+</section>
 
-            <div id="gossip-text" class="font-serif text-2xl text-gray-700 min-h-[120px] opacity-0 transition-opacity duration-500 max-w-md px-4">
-                <!-- Gossip appears here -->
-            </div>
-        </div>
+<section class="view" id="v-food">
+  <h2>Sustenance Withdrawal</h2>
+  <p class="sub">Photo-yil thotti dukham cycle cheyyu.</p>
+  <div class="pol" id="pol"><div class="e" id="fe">🍗</div><p id="ft"></p></div>
+  <div class="row" style="justify-content:center;margin-top:20px"><button class="btn r" id="fo">📱 Swiggy-il nokkam</button><button class="btn w" id="fn">Next 😭</button></div>
+</section>
 
-        <!-- City Fast Simulator -->
-        <div id="view-cityfast" class="view-section flex-col items-center w-full max-w-lg">
-            <h2 class="text-4xl font-serif mb-2">City Fast</h2>
-            <p class="text-sm uppercase tracking-widest text-gray-500 mb-8">Palayam to Statue</p>
-            
-            <div id="game-card" class="soft-card w-full h-64 relative overflow-hidden flex flex-col items-center justify-center transition-colors duration-200 mb-8">
-                <!-- Road background -->
-                <div class="absolute bottom-0 w-full h-12 game-road opacity-50"></div>
-                
-                <!-- Passenger -->
-                <div id="game-passenger" class="text-6xl z-10 transition-transform duration-200">🧍</div>
-                <div class="pill-tag px-3 py-1 absolute bottom-4 uppercase font-bold text-[10px]" id="game-status-pill">Status: Idling</div>
-                
-                <div id="brake-warning" class="absolute top-4 font-serif text-3xl text-red-600 font-bold opacity-0 transition-opacity">Sudden Brake!</div>
-            </div>
+<section class="view" id="v-auto">
+  <h2>Auto Chettan GPS</h2>
+  <p class="sub">Meter ittittilla. Meter ente manassil aanu.</p>
+  <div class="card">
+    <div class="row"><input type="text" id="ai" placeholder="Ninte ippozhathe city"><button class="btn" id="ab">🛺 Hail</button></div>
+    <div id="ao"></div>
+  </div>
+</section>
 
-            <button id="game-btn" class="nav-pill w-full py-4 rounded-full uppercase tracking-widest text-sm font-bold flex items-center justify-center gap-2">
-                HOLD RAIL (Spacebar)
-            </button>
-            <p class="text-xs text-gray-400 mt-4 text-center">Click or hold spacebar when the bus brakes.</p>
-        </div>
+<section class="view" id="v-vs">
+  <h2>City Defeater</h2>
+  <p class="sub">Ethu city-yum TVM-inodu tholkkum. Pareekshikkam.</p>
+  <div class="card">
+    <div class="row"><input type="text" id="ci" placeholder="Oru city type cheyyu"><button class="btn g" id="cb">⚔️ Compare</button></div>
+    <div id="co" style="margin-top:14px"></div>
+  </div>
+</section>
 
-        <!-- Food Withdrawal -->
-        <div id="view-food" class="view-section flex-col items-center w-full max-w-sm">
-            <div class="pill-tag px-4 py-1 uppercase font-bold text-[#5a574f] mb-8">:: sustenance</div>
-            
-            <div onclick="cycleFood()" class="polaroid transform -rotate-2 hover:rotate-1 flex flex-col items-center justify-center w-full select-none">
-                <div class="w-full h-48 bg-gray-100 mb-4 flex items-center justify-center text-6xl shadow-inner rounded-sm" id="food-img">
-                    🍗
-                </div>
-                <p id="food-desc" class="font-serif text-xl text-center min-h-[80px] flex items-center px-2">
-                    Kethel's Chicken: You can't have this. Eat sad dry chicken.
-                </p>
-            </div>
-            <p class="text-xs uppercase tracking-widest text-gray-400 mt-8">Tap photo to cycle</p>
-        </div>
+<div class="foot"><div class="chip">🏬 Days since Lulu Mall TVM was brought up against Kochi: <b id="days">0</b> <button class="btn r" id="lulu" style="padding:6px 12px;font-size:12px">Aarenkilum paranju!</button></div></div>
+<div id="toast"></div>
 
-        <!-- Auto GPS -->
-        <div id="view-auto" class="view-section flex-col items-center w-full max-w-md">
-            <h2 class="text-4xl font-serif mb-8 text-center">Auto Chettan GPS</h2>
-            
-            <div class="soft-card p-8 w-full flex flex-col items-center relative">
-                <div class="text-5xl absolute -top-6 -right-2 animate-float">🛺</div>
-                <input type="text" id="auto-input" class="w-full text-center bg-transparent text-2xl font-serif mb-8 p-2" placeholder="Enter your current city">
-                
-                <button onclick="hailAuto()" class="nav-pill px-8 py-3 rounded-full uppercase tracking-wider text-sm font-semibold mb-8">Hail Auto</button>
-                
-                <div id="auto-output" class="hidden font-serif text-xl text-center bg-[#fdfaf5] p-6 border border-gray-200 shadow-sm w-full relative">
-                    <!-- Text inserted here -->
-                </div>
-            </div>
-        </div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],pick=a=>a[Math.floor(Math.random()*a.length)];
+const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}};
+const ranks=[[0,'Tourist'],[10,'Chaya Regular'],[25,'Palayam Pro'],[50,'Thironthrom Citizen'],[100,'Vazhi-Chodikkal Legend']];
+let pts=+ls('tmtt')||0;
+const rk=n=>ranks.filter(r=>n>=r[0]).pop();
+function paint(){$('#pts').textContent=pts;$('#rank').textContent=rk(pts)[1]}
+function chaya(n=1){const o=rk(pts)[0];pts+=n;ls('tmtt',pts);paint();if(rk(pts)[0]!==o)toast('🎉 New rank: '+rk(pts)[1])}
+let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2400)}
+function burst(e,el){const r=(el||document.body).getBoundingClientRect(),x=el?r.left+r.width/2:innerWidth/2,y=el?r.top+r.height/2:innerHeight/2;
+for(let i=0;i<14;i++){const s=document.createElement('span');s.className='pt';s.textContent=Array.isArray(e)?pick(e):e;s.style.left=x+'px';s.style.top=y+'px';
+s.style.setProperty('--dx',(Math.random()-.5)*300+'px');s.style.setProperty('--dy',(Math.random()-.8)*260+'px');s.style.setProperty('--rt',(Math.random()-.5)*600+'deg');
+document.body.appendChild(s);setTimeout(()=>s.remove(),1000)}}
+$('#theme').onclick=()=>{const d=document.documentElement,dark=d.dataset.theme?d.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;d.dataset.theme=dark?'light':'dark'};
 
-        <!-- City Defeater -->
-        <div id="view-compare" class="view-section flex-col items-center w-full max-w-md">
-            <h2 class="text-4xl font-serif mb-8 text-center">City Defeater</h2>
-            
-            <div class="w-full flex flex-col items-center relative">
-                <input type="text" id="compare-input" class="w-full text-center bg-transparent text-3xl font-serif border-b-2 border-gray-300 pb-2 focus:border-black transition-colors mb-10 placeholder-gray-300" placeholder="Enter a city to compare">
-                
-                <button onclick="compareCity()" class="nav-pill px-10 py-4 rounded-full uppercase tracking-widest font-bold mb-10 text-lg">Compare</button>
-                
-                <div id="compare-output" class="hidden font-serif text-3xl md:text-4xl text-center leading-tight">
-                    <!-- Output goes here -->
-                </div>
-            </div>
-        </div>
-    </main>
+/* tabs */
+const V=[['home','🏠','Home'],['vent','🗣️','Vent'],['chaya','☕','Chaya Kada'],['bus','🚌','City Fast'],['food','🍗','Food'],['auto','🛺','Auto GPS'],['vs','⚔️','Defeater']];
+$('#tabs').innerHTML=V.map(v=>`<button class="tab${v[0]=='home'?' on':''}" data-v="${v[0]}">${v[1]} ${v[2]}</button>`).join('');
+$$('.tab').forEach(b=>b.onclick=()=>{$$('.tab').forEach(x=>x.classList.toggle('on',x===b));$$('.view').forEach(v=>v.classList.toggle('on',v.id==='v-'+b.dataset.v));if(b.dataset.v!=='bus')over(true);scrollTo({top:0,behavior:'smooth'})});
 
-    <footer class="w-full p-4 flex justify-center sticky bottom-0 z-20 backdrop-blur-sm bg-[var(--bg-color)]/80 border-t border-[var(--border-color)]">
-        <div class="pill-tag px-5 py-2 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-            Days since Lulu Mall TVM was brought up in an argument against Kochi: <strong class="font-serif ml-1 text-lg">0</strong>
-        </div>
-    </footer>
+/* home */
+const M=[['☕','Mild. Oru chaya-yude size-ulla vellyam mathram.'],['🥤','Sambaram kudikkan thonnunnu. Buttermilk polum illa ivide.'],['🚌','Reel-il KSRTC horn kettu. 10 minute mindathe irunnu.'],['🛺','"Kayaradey" ennu oru thavana kelkkanam. Mathi.'],['🏛️','Napier Museum-ilekku virtual tour. Free of cost.'],['🌧️','Palayam-il mazha. Chaya. Aa manam. Ayyo.'],['📞','Ammaye vilichu. "Choru kazhicho?" kettu karanju.'],['🎵','Pazhaya Malayalam paattu loop. Aduthulla aalukal complaint cheythu.'],['🥺','3 AM-nu "flight to TRV" Google cheyyunnu. Vila: ente aathmavu.'],['🔥','"Enthuvaadey" ennu parayatha aaleyum idikkan ready.']];
+const cures=['Chaya x2 kudikku. Pinne aarodenkilum "Enthuvaadey" parayu.','Palayam traffic-inte audio 10 minute kelkku.','Mother\'s Veg Plaza menu vayichu karayuka. Daily repeat.','Veettil vilikku. "Choru kazhicho" ennu chodikkum. Athu mathi.','Kovalam sunset photo nokki "ente naadu" ennu parayu. Aarum kelkkenda.'];
+$('#sl').oninput=e=>{const v=+e.target.value,m=M[v-1],b=$('#me');$('#lv').textContent='Level '+v;b.textContent=m[0];$('#say').textContent=m[1];b.classList.toggle('shake',v>=8);b.style.transform='scale('+(1+v*.04)+')';if(v==10){burst(['😭','🛺','☕','🥥'],b);chaya(2)}};
+$('#rx').onclick=e=>{toast('💊 '+pick(cures));burst('💊',e.target);chaya()};
 
-    <script>
-        // --- Navigation Logic ---
-        function nav(viewId) {
-            // Update active pill
-            document.querySelectorAll('.nav-pill').forEach(btn => {
-                if(btn.innerText.toLowerCase().includes(viewId.toLowerCase())) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
+/* vent */
+const R=[[/traffic|bus|jam|metro/,['Traffic aano? Palayam-il oru Thursday ninnittilla alle nee? Athu kandal ivide "peaceful" aanu.']],
+[/rent|house|flat|landlord/,['Rent-o? Ente ponnu mone, nammude naattil ₹8000-nu veedu kittum. Ivide athinu oru cupboard.','Landlord oru oola aane! Vittukalayadey!']],
+[/cold|weather|winter|hot|heat/,['Thanuppu aano? Nammude naattil veyil mathram, athu "free sauna" aanu. Ormakku nallathu.']],
+[/food|eat|hungry|biryani|restaurant/,['Food-o? Kethel, Zam Zam, Mother\'s... chodikkenda alle. Njan ormichu poyi, ayyo.']],
+[/boss|work|office|job|meeting/,['Boss mosham aano? Technopark-il polum "Chetta" ennu vilichal mathi, ivide "Sir" ennu vilikkanam. Kashtam.']],
+[/rain|mazha/,['Mazha-yo? Namude mazha aa mannin manam koode kondu varum. Ivide verum "wet".']],
+[/people|rude|friend|lonely|alone/,['Aalkkar mosham aano? Nammude aalkkar vazhi chodichal moonu perodu chodikkum, oru chaya-yum kazhichu vidum.']],
+[/miss|home|sad|cry/,['Ayyo appi... oru chaya kudichittu para. Nammukku set aakkam.']]];
+const D=['Shokam aanallo. Oru chaya kudichal theeravunna prashname ullu.','Vittukalayadey! Athu ninte kuttam alla, athu city-yude kuzhappam.','Sheri sheri. Oru Boli-yum Payasavum adichal ellam sheriyakum.','Ente ponno! Ithu kettapol enikku polum vishakkunnu.','Enthuvaadey ithu! Ninte city-kku oru "Enthu" polum parayan ariyilla alle.'];
+const chat=$('#chat');
+function add(t,c){const d=document.createElement('div');d.className='b '+c;d.textContent=t;chat.appendChild(d);chat.scrollTop=chat.scrollHeight;return d}
+function vent(){const t=$('#vi').value.trim();if(!t)return;add(t,'me');$('#vi').value='';const w=add('Appi type cheyyunnu...','bot');
+setTimeout(()=>{const m=R.find(r=>r[0].test(t.toLowerCase()));w.textContent=pick(m?m[1]:D);chat.scrollTop=chat.scrollHeight;chaya()},700)}
+$('#vb').onclick=vent;$('#vi').onkeydown=e=>{if(e.key==='Enter')vent()};
+$('#vchips').innerHTML=['Traffic','Rent','Weather','Food','Boss','Rain'].map(c=>`<button class="chip">Ee ${c} kaaranam...</button>`).join('');
+$$('#vchips .chip').forEach(c=>c.onclick=()=>{$('#vi').value=c.textContent.replace('...','').trim()+' mosham aanu';vent()});
 
-            // Update views
-            document.querySelectorAll('.view-section').forEach(view => {
-                view.classList.remove('active');
-                // slight delay for smooth exit/entry feel could be added via timeout, 
-                // but direct class toggle works well with CSS opacity/transform
-            });
-            
-            setTimeout(() => {
-                document.getElementById('view-' + viewId).classList.add('active');
-            }, 50);
+/* gossip */
+const G=['Shaji-yude mon Technopark-il job kitti. Pakshe ippozhum Activa-yil Mall of Travancore-il pokum. Valiya jada!','Sasthamangalam road veendum kuzhichu. Water Authority aanu, allathe aaru?','Cover-inu randu roopa extra? Ithu Margin Free supermarket aano?','Geetha aunty Chalai-yil ninnu moonu kilo beef vangi. Gelf-il ninnu aarenkilum varunnundu urappu.','Statue-yude aduthulla puffs kollam, pakshe ₹25! Kollayadey!','Pareeksha-kku mumpu ambalathil kuttikalude thirakku. Aarum padikkunnilla, ellarum "vazhipadu".','Work from home ennu paranju, laptop-umayi Kovalam beach-il irikkunnu. Boss ariyilla ketto.','Autokaran "meter ittu" ennu paranju. Meter-inte mukalil oru thorthu mundu.','Vellayambalam signal 90 second aanu. Aarum kandittilla, ellarum horn adichu.','Aa flat-ile aunty ente ammaye Facebook-il request ayachu. Ee kaalam!'];
+let gl=[];$('#cup').onclick=()=>{if(!gl.length)gl=[...G].sort(()=>Math.random()-.5);$('#news').innerHTML='<span class="tag">BREAKING</span><br>"'+gl.pop()+'"';chaya()};
+$$('[data-re]').forEach(b=>b.onclick=()=>{toast(b.dataset.re);burst(b.dataset.re.slice(-2),b);chaya()});
 
-            // Reset Game state if navigating away
-            if(viewId !== 'cityfast' && isGameRunning) {
-                endGame(false, true);
-            }
-        }
+/* bus game */
+let g={on:0,hold:0,grip:100,sc:0,st:'c',t:0},best=+ls('tmtb')||0,iv;$('#bs').textContent=best;
+function setHold(h){g.hold=h;$('#pas').textContent=h?'🧗':'🧍';$('#pas').style.transform=h?'translateY(-12px)':'none';if(h&&!g.on)start()}
+function start(){g={on:1,hold:g.hold,grip:100,sc:0,st:'c',t:1500};$('#sc').textContent=0;$('#scene').classList.remove('stop','brk');$('#gst').textContent='Driving to Statue...';clearInterval(iv);iv=setInterval(tick,50)}
+function tick(){if(g.hold)g.grip-=1.8;else g.grip=Math.min(100,g.grip+1.3);const b=$('#grip');b.style.width=Math.max(0,g.grip)+'%';b.style.background=g.grip<30?'var(--r)':'var(--g)';
+if(g.grip<=0)return over(false,pick(['Kai kuzhanju! Vellayambalam-il ninnu parannu.','Grip poyi. Ippo nee Statue-yil flight mode-il.']));
+g.t-=50;if(g.t>0)return;
+if(g.st==='c'){g.st='b';g.t=Math.max(450,900-g.sc*25);$('#scene').classList.add('brk');$('#gst').textContent='BRAKE! HOLD!!'}
+else{if(!g.hold)return over(false,pick(['Brake adichu, nee parannu. Conductor chirichu.','Pidichilla! Nee ippo Pazhavangadi vare thalli poyi.']));
+g.sc++;$('#sc').textContent=g.sc;g.st='c';g.t=1000+Math.random()*1300;$('#scene').classList.remove('brk');$('#gst').textContent='Survived! Kai thalarunnu...';if(g.sc%5==0){burst('🚌',$('#scene'));chaya()}}}
+function over(silent,msg){clearInterval(iv);const was=g.on;g.on=0;$('#scene').classList.remove('brk');$('#scene').classList.add('stop');if(silent||!was)return;
+$('#pas').textContent='💨';$('#gst').textContent=msg+' Score: '+g.sc;if(g.sc>best){best=g.sc;ls('tmtb',best);$('#bs').textContent=best;toast('🏆 New record!')}chaya(Math.ceil(g.sc/2));setTimeout(()=>{if(!g.on)setHold(g.hold)},1200)}
+const hb=$('#hold');['pointerdown'].forEach(e=>hb.addEventListener(e,ev=>{ev.preventDefault();setHold(1)}));['pointerup','pointerleave','pointercancel'].forEach(e=>hb.addEventListener(e,()=>setHold(0)));
+addEventListener('keydown',e=>{if(e.code==='Space'&&$('#v-bus').classList.contains('on')){e.preventDefault();if(!g.hold)setHold(1)}});
+addEventListener('keyup',e=>{if(e.code==='Space')setHold(0)});
 
-        // --- 1. Home Slider ---
-        const slider = document.getElementById('slider');
-        const sliderText = document.getElementById('slider-text');
-        const sliderPill = document.getElementById('slider-val-pill');
-        
-        slider.addEventListener('input', (e) => {
-            const val = parseInt(e.target.value);
-            sliderPill.innerText = `Level ${val}`;
-            
-            let text = "";
-            if (val === 1) text = "Craving a Chaya";
-            else if (val <= 3) text = "Missing the Pazhavangadi vibes";
-            else if (val <= 5) text = "Thinking about Napier Museum";
-            else if (val <= 7) text = "Wishing I was stuck in Palayam traffic";
-            else if (val <= 9) text = "Crying to old Malayalam songs";
-            else text = "Ready to fight someone if they don't say 'Enthuadey'";
-            
-            sliderText.style.opacity = 0;
-            setTimeout(() => {
-                sliderText.innerText = text;
-                sliderText.style.opacity = 1;
-            }, 150);
-        });
+/* food */
+const F=[['🍗','Kethel\'s Chicken: Ithu ippo kittilla. Sad dry chicken kazhikku.'],['🌯','Zam Zam Shawarma: Maggi undaakku appi.'],['🍛','Mother\'s Veg Plaza: Ninte kanneer aanu ippo uppu.'],['🍰','Supreme Bakery: Ninakku ozhinja display case mathram.'],['☕','Indian Coffee House, Thampanoor: Aa turban-vechu waiter, aa kaapi. Ormikkathirikku.'],['🍌','Chalai pazham pori: Airport-il polum ithu kittilla ketto.']];
+let fi=0;function food(i){const p=$('#pol');p.style.transform='rotate('+(Math.random()*8-4)+'deg) scale(.95)';setTimeout(()=>{$('#fe').textContent=F[i][0];$('#ft').textContent=F[i][1];p.style.transform='rotate('+(Math.random()*6-3)+'deg)'},150)}
+food(0);$('#pol').onclick=$('#fn').onclick=()=>{fi=(fi+1)%F.length;food(fi);chaya(0)};
+$('#fo').onclick=e=>{toast(pick(['Delivery fee ₹80. Taste ₹0.','Swiggy: "Kerala nu 3000 km dooram". Ayyo.','Order cheythu. Vannathu: oru sad dosa.']));burst('😭',e.target);chaya()};
 
-        // --- 2. Echo Chamber ---
-        const ventResponses = [
-            "Vittukalayadey! Aa landlord oru oola aane!",
-            "Endappiyee, shokam aanallo.",
-            "Enthuaadey ithu! Oru chaya kudichal theeravunna prashname ullu.",
-            "Oru Boli yum Payasavum adicha theerunna preshname ullu.",
-            "Ayyo paavam. Nammukku set aakkam appi!"
-        ];
-        function ventAction() {
-            const input = document.getElementById('vent-input');
-            if(!input.value.trim()) return;
-            const output = document.getElementById('vent-output');
-            
-            output.style.opacity = 0;
-            output.classList.remove('hidden');
-            
-            setTimeout(() => {
-                const randomQuote = ventResponses[Math.floor(Math.random() * ventResponses.length)];
-                output.innerText = randomQuote;
-                output.style.opacity = 1;
-                input.value = "";
-            }, 300);
-        }
+/* auto */
+let fare=0,fv,city='';const EX=['Mazha charge','Night charge (pakal aanu, pakshe ente manassil raathri)','Ente mood charge','Statue kazhinju charge','Bhagyam charge'];
+function count(to){clearInterval(fv);let c=+$('#fr').textContent.replace(/\D/g,'')||0;fv=setInterval(()=>{c+=Math.ceil((to-c)/6);$('#fr').textContent='₹'+c;if(c>=to)clearInterval(fv)},40)}
+$('#ab').onclick=()=>{city=$('#ai').value.trim()||'Aa sthalam';fare=Math.round((4000+Math.random()*5000)/50)*50;const km=800+Math.floor(Math.random()*2200);
+$('#ao').innerHTML=`<div class="rcpt"><div>"${city.replace(/[<>&]/g,'')}? Athu Statue kazhinjittalle?"</div><div style="margin:8px 0">Oru ${km} km odanam. Meter illa, ente manassil und.</div><div class="fare" id="fr">₹0</div><div class="row" style="justify-content:center"><button class="btn g" id="ay">Kayaradey! 🛺</button><button class="btn w" id="bg">Kurakkamo?</button></div><div id="ex" style="font-size:13px;margin-top:10px;text-align:center"></div></div>`;
+count(fare);chaya(0);
+$('#bg').onclick=()=>{fare+=500;$('#ex').textContent='Kurakkano? Sheri: +₹500 ('+pick(EX)+')';count(fare)};
+$('#ay').onclick=e=>{burst('🛺',e.target);toast('Kayarunnu! Seat belt illa, vishwasam undu.');chaya(3)}};
 
-        // --- 3. Chaya Kada Gossip ---
-        const gossips = [
-            "Heard Shaji’s son got a job in Technopark. But he still goes to Mall of Travancore in his dad's Activa. Valiya jada.",
-            "They dug up the road at Sasthamangalam again. Water Authority, obviously.",
-            "Two rupees extra for the cover? What is this, Margin Free Supermarket?",
-            "Saw Geetha aunty buying 3 kilos of beef from Chalai. Someone's coming from Gelf for sure.",
-            "That new bakery near Statue... the puffs are good but they charge ₹25! Robbery dey!"
-        ];
-        function showGossip() {
-            const output = document.getElementById('gossip-text');
-            const cup = document.getElementById('tea-cup');
-            
-            output.style.opacity = 0;
-            cup.style.transform = 'scale(0.9) rotate(-5deg)';
-            
-            setTimeout(() => {
-                cup.style.transform = 'scale(1) rotate(0deg)';
-                const randomGossip = gossips[Math.floor(Math.random() * gossips.length)];
-                output.innerText = `"${randomGossip}"`;
-                output.style.opacity = 1;
-            }, 200);
-        }
-
-        // --- 4. City Fast Simulator ---
-        const gameCard = document.getElementById('game-card');
-        const passenger = document.getElementById('game-passenger');
-        const statusPill = document.getElementById('game-status-pill');
-        const brakeWarning = document.getElementById('brake-warning');
-        const gameBtn = document.getElementById('game-btn');
-        
-        let isGameRunning = false;
-        let isBraking = false;
-        let isHolding = false;
-        let gameLoopTimeout;
-        let brakeTimeout;
-
-        // Input handlers for game
-        function setHold(state) {
-            isHolding = state;
-            if(state) {
-                passenger.innerText = "🧗";
-                passenger.style.transform = "translateY(-10px)";
-                gameBtn.style.backgroundColor = "var(--accent-hover)";
-            } else {
-                passenger.innerText = "🧍";
-                passenger.style.transform = "translateY(0)";
-                gameBtn.style.backgroundColor = "transparent";
-            }
-            
-            if(!isGameRunning && state) {
-                startGame();
-            }
-        }
-
-        gameBtn.addEventListener('mousedown', () => setHold(true));
-        gameBtn.addEventListener('mouseup', () => setHold(false));
-        gameBtn.addEventListener('mouseleave', () => setHold(false));
-        gameBtn.addEventListener('touchstart', (e) => { e.preventDefault(); setHold(true); });
-        gameBtn.addEventListener('touchend', (e) => { e.preventDefault(); setHold(false); });
-
-        window.addEventListener('keydown', (e) => {
-            if(e.code === 'Space' && document.getElementById('view-cityfast').classList.contains('active')) {
-                e.preventDefault();
-                if(!isHolding) setHold(true);
-            }
-        });
-        window.addEventListener('keyup', (e) => {
-            if(e.code === 'Space') {
-                setHold(false);
-            }
-        });
-
-        function startGame() {
-            isGameRunning = true;
-            statusPill.innerText = "Driving to Statue...";
-            statusPill.style.color = "inherit";
-            gameCard.classList.remove('game-braking');
-            brakeWarning.style.opacity = 0;
-            scheduleBrake();
-        }
-
-        function scheduleBrake() {
-            if(!isGameRunning) return;
-            const delay = Math.random() * 2000 + 1000;
-            gameLoopTimeout = setTimeout(() => {
-                triggerBrake();
-            }, delay);
-        }
-
-        function triggerBrake() {
-            if(!isGameRunning) return;
-            isBraking = true;
-            gameCard.classList.add('game-braking');
-            brakeWarning.style.opacity = 1;
-            statusPill.innerText = "BRAKE!";
-            statusPill.style.color = "red";
-            
-            // Checking window
-            brakeTimeout = setTimeout(() => {
-                if(isGameRunning) {
-                    gameCard.classList.remove('game-braking');
-                    brakeWarning.style.opacity = 0;
-                    isBraking = false;
-                    
-                    if(!isHolding) {
-                        endGame(false);
-                    } else {
-                        statusPill.innerText = "Survived...";
-                        statusPill.style.color = "green";
-                        scheduleBrake();
-                    }
-                }
-            }, 800); // reaction time window
-        }
-
-        function endGame(won, silent = false) {
-            isGameRunning = false;
-            isBraking = false;
-            clearTimeout(gameLoopTimeout);
-            clearTimeout(brakeTimeout);
-            gameCard.classList.remove('game-braking');
-            brakeWarning.style.opacity = 0;
-            
-            if(!silent) {
-                statusPill.innerText = "Game Over: You flew out at Vellayambalam.";
-                statusPill.style.color = "red";
-                passenger.innerText = "💨";
-                passenger.style.transform = "translateX(50px) rotate(90deg)";
-                
-                // reset visual after a moment
-                setTimeout(() => {
-                    passenger.innerText = isHolding ? "🧗" : "🧍";
-                    passenger.style.transform = isHolding ? "translateY(-10px)" : "translateY(0)";
-                    statusPill.innerText = "Hold to Restart";
-                    statusPill.style.color = "inherit";
-                }, 2000);
-            }
-        }
-
-        // --- 5. Food Withdrawal ---
-        const foods = [
-            { emoji: "🍗", text: "Kethel's Chicken: You can't have this. Eat sad dry chicken." },
-            { emoji: "🌯", text: "Zam Zam Shawarma: Go make Maggi, appi." },
-            { emoji: "🍛", text: "Mother's Veg Plaza: Tears add good salt to your Swiggy order." },
-            { emoji: "🍰", text: "Supreme Bakery: Only empty display cases for you." }
-        ];
-        let foodIndex = 0;
-        function cycleFood() {
-            foodIndex = (foodIndex + 1) % foods.length;
-            const img = document.getElementById('food-img');
-            const desc = document.getElementById('food-desc');
-            
-            // tiny animation
-            img.style.transform = 'scale(0.9)';
-            desc.style.opacity = 0;
-            
-            setTimeout(() => {
-                img.innerText = foods[foodIndex].emoji;
-                desc.innerText = foods[foodIndex].text;
-                img.style.transform = 'scale(1)';
-                desc.style.opacity = 1;
-            }, 200);
-        }
-
-        // --- 6. Auto GPS ---
-        function hailAuto() {
-            const input = document.getElementById('auto-input');
-            const output = document.getElementById('auto-output');
-            const city = input.value.trim() || "that place";
-            
-            output.style.opacity = 0;
-            output.classList.remove('hidden');
-            
-            setTimeout(() => {
-                // Formatting per exact requirements + pill pin style for the text
-                output.innerHTML = `<div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-white border border-gray-300 rounded-full px-2 py-0.5 text-[10px] uppercase tracking-wider text-gray-500 shadow-sm">Quote</div>
-                ${city}? Athu Statue kazhinjittalle? Oru 1500 km odanam... 5000 roopa aakum. Kayaradey!`;
-                output.style.opacity = 1;
-                input.value = "";
-            }, 300);
-        }
-
-        // --- 7. City Defeater ---
-        function compareCity() {
-            const input = document.getElementById('compare-input');
-            const output = document.getElementById('compare-output');
-            const city = input.value.trim();
-            
-            if(!city) return;
-
-            output.style.opacity = 0;
-            output.classList.remove('hidden');
-            
-            setTimeout(() => {
-                output.innerHTML = `TVM is the best,<br> <span class="line-through decoration-4 decoration-red-500 opacity-50">${city}</span> is a joke.<br><span class="text-xl mt-4 block italic text-gray-500">I'm biased, get the hell out.</span>`;
-                output.style.opacity = 1;
-            }, 400);
-        }
-
-        // Initialize first view explicitly to handle edge cases in Safari
-        nav('home');
-    </script>
+/* defeater */
+let days=0,tm=0;
+function lulu(){days=0;tm++;$('#days').textContent=days}
+$('#lulu').onclick=()=>{lulu();toast(pick(['Counter reset cheythu. Ithu 0 thanne aayirunnu, appi.','Lulu Mall mention #'+tm+' innu. Record!','Kochi-kkaar kettu, shock aayi.']));burst('🏬',$('#lulu'))};
+$('#cb').onclick=()=>{const raw=$('#ci').value.trim();if(!raw)return;const c=raw.replace(/[<>&]/g,''),l=raw.toLowerCase(),sc=Math.floor(Math.random()*9)+3;
+let line;if(/kochi|cochin|ernakulam/.test(l)){line='Kochi? Lulu Mall undu alle? Namukkum TVM-il Lulu Mall undu. Case closed.';lulu()}
+else if(/bangalore|bengaluru/.test(l))line='Bengaluru? Traffic undu, pakshe Palayam traffic-inte "soul" illa.';
+else if(/dubai/.test(l))line='Dubai? AC mall ellam kollam. Pakshe Chalai-yile aa "veyil" feel undo?';
+else if(/kollam|kozhikode|thrissur|alappuzha|kannur/.test(l))line=c+'? Neighbour aanu, respect. Pakshe TVM-ine thorpikkan patilla.';
+else line=pick([c+'? Athu Google Maps-il thappendi vannu. TVM ennal Google polum thirinjittilla.',c+'-il Chalai market undo? Illallo. Case closed, appi.',c+'-il Kovalam-um Napier Museum-um undo? Pinne enthinaa?',c+'? Sheri, nalla city. Pakshe TVM ente janmam aanu, athinu mukalil onnum illa.']);
+$('#co').innerHTML=`<div class="vsrow">🏛️ Thironthrom<div class="vsb"><i id="b1" style="background:var(--g)"></i></div></div><div class="vsrow">${c}<div class="vsb"><i id="b2" style="background:var(--r)"></i></div></div><p class="fr" style="font-size:20px;margin:14px 0">${line}</p><div style="text-align:center"><span class="stamp">TVM WINS</span><br><small>Biased aanu. Ennalum.</small></div>`;
+requestAnimationFrame(()=>requestAnimationFrame(()=>{$('#b1').style.width='100%';$('#b2').style.width=sc+'%'}));burst(['🏆','🥥','☕'],$('#cb'));chaya(2)};
+$('#ci').onkeydown=e=>{if(e.key==='Enter')$('#cb').click()};$('#ai').onkeydown=e=>{if(e.key==='Enter')$('#ab').click()};
+paint();
+</script>
 </body>
 </html>
