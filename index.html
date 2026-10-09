@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TVT - Trivandrum Homesickness Cure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f4f0ea;
+            --text-main: #2c2a25;
+            --accent-hover: #e3ddce;
+            --border-color: #c9c5bc;
+        }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            /* Soft noise texture overlay */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Pill Navigation Button */
+        .nav-pill {
+            border: 1px solid var(--border-color);
+            background: transparent;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+        .nav-pill:hover, .nav-pill.active {
+            background-color: var(--accent-hover);
+            border-color: #a39f97;
+        }
+
+        /* View Transitions */
+        .view-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .view-section.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Soft Glass Card */
+        .soft-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+            border-radius: 24px;
+        }
+
+        /* Pill Tag */
+        .pill-tag {
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* Custom Range Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 40px;
+            border-radius: 12px;
+            background: var(--text-main);
+            cursor: pointer;
+            margin-top: -10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: var(--border-color);
+            border-radius: 2px;
+        }
+
+        /* Polaroid */
+        .polaroid {
+            background: white;
+            padding: 16px 16px 48px 16px;
+            box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #eaeaea;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        .polaroid:hover {
+            transform: scale(1.02) rotate(1deg);
+            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Game Bus Animation */
+        @keyframes drive {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        .game-road {
+            background: repeating-linear-gradient(90deg, #d4d0c5 0px, #d4d0c5 20px, transparent 20px, transparent 40px);
+            background-size: 200% 100%;
+            animation: drive 0.5s linear infinite;
+        }
+        .game-braking .game-road {
+            animation-play-state: paused;
+        }
+        .game-braking {
+            background-color: #ffb3b3 !important;
+            transition: background-color 0.1s;
+        }
+        
+        /* Input overrides */
+        input[type="text"], textarea {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border-color);
+            border-radius: 0;
+            box-shadow: none;
+        }
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-bottom-color: var(--text-main);
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <nav class="w-full p-6 flex flex-col items-center justify-center relative z-20">
+        <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto text-sm">
+            <button onclick="nav('home')" class="nav-pill active px-5 py-2 rounded-full uppercase tracking-wider text-xs font-semibold">Home</button>
+            <button onclick="nav('echo')" class="nav-pill px-5 py-2 rounded-full uppercase tracking-wider text-xs font-semibold">Echo</button>
+            <button onclick="nav('gossip')" class="nav-pill px-5 py-2 rounded-full uppercase tracking-wider text-xs font-semibold">Gossip</button>
+            <button onclick="nav('cityfast')" class="nav-pill px-5 py-2 rounded-full uppercase tracking-wider text-xs font-semibold">City Fast</button>
+            <button onclick="nav('food')" class="nav-pill px-5 py-2 rounded-full uppercase tracking-wider text-xs font-semibold">Food</button>
+            <button onclick="nav('auto')" class="nav-pill px-5 py-2 rounded-full uppercase tracking-wider text-xs font-semibold">Auto GPS</button>
+            <button onclick="nav('compare')" class="nav-pill px-5 py-2 rounded-full uppercase tracking-wider text-xs font-semibold">Defeater</button>
+        </div>
+    </nav>
+
+    <main class="flex-grow flex items-center justify-center p-6 w-full relative z-10 max-w-5xl mx-auto min-h-[60vh]">
+        
+        <!-- Home / Check-in -->
+        <div id="view-home" class="view-section active flex-col items-center text-center w-full max-w-xl">
+            <h1 class="text-7xl md:text-9xl mb-2 text-[#2c2a25] tracking-tight">TVT</h1>
+            <p class="font-serif italic text-lg md:text-xl text-gray-600 mb-12">For the violently homesick Trivandrumite.</p>
+            
+            <div class="soft-card p-8 md:p-12 w-full flex flex-col items-center">
+                <label class="uppercase tracking-widest text-xs font-semibold mb-8">How much are you missing TVM today?</label>
+                <input type="range" min="1" max="10" value="1" id="slider" class="w-full mb-8">
+                <div class="relative">
+                    <span id="slider-val-pill" class="pill-tag px-4 py-2 absolute -top-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap text-[#5a574f] transition-all">Level 1</span>
+                    <p id="slider-text" class="font-serif text-2xl md:text-3xl text-center min-h-[80px] flex items-center justify-center transition-opacity duration-300">
+                        Craving a Chaya
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Echo Chamber -->
+        <div id="view-echo" class="view-section flex-col items-center w-full max-w-md">
+            <div class="soft-card p-8 w-full flex flex-col relative">
+                <div class="absolute -top-4 -left-4 pill-tag px-4 py-1 uppercase font-bold text-[#5a574f]">:: venting booth</div>
+                
+                <h2 class="text-3xl font-serif mb-6 mt-4">The Echo Chamber</h2>
+                <textarea id="vent-input" rows="3" class="w-full bg-transparent text-lg resize-none mb-6 p-2 placeholder-gray-400" placeholder="Complain about your current city here..."></textarea>
+                
+                <button onclick="ventAction()" class="nav-pill self-end px-6 py-2 rounded-full uppercase tracking-wider text-xs font-semibold mb-6">Vent</button>
+                
+                <div id="vent-output" class="hidden text-xl font-serif italic text-center p-4 bg-white/40 rounded-xl border border-white/60 min-h-[80px] flex items-center justify-center transition-all">
+                </div>
+            </div>
+        </div>
+
+        <!-- Chaya Kada Gossip -->
+        <div id="view-gossip" class="view-section flex-col items-center w-full max-w-lg text-center">
+            <h2 class="text-4xl font-serif mb-12">Chaya Kada</h2>
+            
+            <div class="relative cursor-pointer animate-float mb-12" onclick="showGossip()">
+                <div class="text-8xl drop-shadow-xl select-none transform transition-transform hover:scale-105" id="tea-cup">☕</div>
+                <div class="pill-tag px-3 py-1 absolute -bottom-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap font-semibold">Tap for Gossip</div>
+            </div>
+
+            <div id="gossip-text" class="font-serif text-2xl text-gray-700 min-h-[120px] opacity-0 transition-opacity duration-500 max-w-md px-4">
+                <!-- Gossip appears here -->
+            </div>
+        </div>
+
+        <!-- City Fast Simulator -->
+        <div id="view-cityfast" class="view-section flex-col items-center w-full max-w-lg">
+            <h2 class="text-4xl font-serif mb-2">City Fast</h2>
+            <p class="text-sm uppercase tracking-widest text-gray-500 mb-8">Palayam to Statue</p>
+            
+            <div id="game-card" class="soft-card w-full h-64 relative overflow-hidden flex flex-col items-center justify-center transition-colors duration-200 mb-8">
+                <!-- Road background -->
+                <div class="absolute bottom-0 w-full h-12 game-road opacity-50"></div>
+                
+                <!-- Passenger -->
+                <div id="game-passenger" class="text-6xl z-10 transition-transform duration-200">🧍</div>
+                <div class="pill-tag px-3 py-1 absolute bottom-4 uppercase font-bold text-[10px]" id="game-status-pill">Status: Idling</div>
+                
+                <div id="brake-warning" class="absolute top-4 font-serif text-3xl text-red-600 font-bold opacity-0 transition-opacity">Sudden Brake!</div>
+            </div>
+
+            <button id="game-btn" class="nav-pill w-full py-4 rounded-full uppercase tracking-widest text-sm font-bold flex items-center justify-center gap-2">
+                HOLD RAIL (Spacebar)
+            </button>
+            <p class="text-xs text-gray-400 mt-4 text-center">Click or hold spacebar when the bus brakes.</p>
+        </div>
+
+        <!-- Food Withdrawal -->
+        <div id="view-food" class="view-section flex-col items-center w-full max-w-sm">
+            <div class="pill-tag px-4 py-1 uppercase font-bold text-[#5a574f] mb-8">:: sustenance</div>
+            
+            <div onclick="cycleFood()" class="polaroid transform -rotate-2 hover:rotate-1 flex flex-col items-center justify-center w-full select-none">
+                <div class="w-full h-48 bg-gray-100 mb-4 flex items-center justify-center text-6xl shadow-inner rounded-sm" id="food-img">
+                    🍗
+                </div>
+                <p id="food-desc" class="font-serif text-xl text-center min-h-[80px] flex items-center px-2">
+                    Kethel's Chicken: You can't have this. Eat sad dry chicken.
+                </p>
+            </div>
+            <p class="text-xs uppercase tracking-widest text-gray-400 mt-8">Tap photo to cycle</p>
+        </div>
+
+        <!-- Auto GPS -->
+        <div id="view-auto" class="view-section flex-col items-center w-full max-w-md">
+            <h2 class="text-4xl font-serif mb-8 text-center">Auto Chettan GPS</h2>
+            
+            <div class="soft-card p-8 w-full flex flex-col items-center relative">
+                <div class="text-5xl absolute -top-6 -right-2 animate-float">🛺</div>
+                <input type="text" id="auto-input" class="w-full text-center bg-transparent text-2xl font-serif mb-8 p-2" placeholder="Enter your current city">
+                
+                <button onclick="hailAuto()" class="nav-pill px-8 py-3 rounded-full uppercase tracking-wider text-sm font-semibold mb-8">Hail Auto</button>
+                
+                <div id="auto-output" class="hidden font-serif text-xl text-center bg-[#fdfaf5] p-6 border border-gray-200 shadow-sm w-full relative">
+                    <!-- Text inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- City Defeater -->
+        <div id="view-compare" class="view-section flex-col items-center w-full max-w-md">
+            <h2 class="text-4xl font-serif mb-8 text-center">City Defeater</h2>
+            
+            <div class="w-full flex flex-col items-center relative">
+                <input type="text" id="compare-input" class="w-full text-center bg-transparent text-3xl font-serif border-b-2 border-gray-300 pb-2 focus:border-black transition-colors mb-10 placeholder-gray-300" placeholder="Enter a city to compare">
+                
+                <button onclick="compareCity()" class="nav-pill px-10 py-4 rounded-full uppercase tracking-widest font-bold mb-10 text-lg">Compare</button>
+                
+                <div id="compare-output" class="hidden font-serif text-3xl md:text-4xl text-center leading-tight">
+                    <!-- Output goes here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="w-full p-4 flex justify-center sticky bottom-0 z-20 backdrop-blur-sm bg-[var(--bg-color)]/80 border-t border-[var(--border-color)]">
+        <div class="pill-tag px-5 py-2 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+            Days since Lulu Mall TVM was brought up in an argument against Kochi: <strong class="font-serif ml-1 text-lg">0</strong>
+        </div>
+    </footer>
+
+    <script>
+        // --- Navigation Logic ---
+        function nav(viewId) {
+            // Update active pill
+            document.querySelectorAll('.nav-pill').forEach(btn => {
+                if(btn.innerText.toLowerCase().includes(viewId.toLowerCase())) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Update views
+            document.querySelectorAll('.view-section').forEach(view => {
+                view.classList.remove('active');
+                // slight delay for smooth exit/entry feel could be added via timeout, 
+                // but direct class toggle works well with CSS opacity/transform
+            });
+            
+            setTimeout(() => {
+                document.getElementById('view-' + viewId).classList.add('active');
+            }, 50);
+
+            // Reset Game state if navigating away
+            if(viewId !== 'cityfast' && isGameRunning) {
+                endGame(false, true);
+            }
+        }
+
+        // --- 1. Home Slider ---
+        const slider = document.getElementById('slider');
+        const sliderText = document.getElementById('slider-text');
+        const sliderPill = document.getElementById('slider-val-pill');
+        
+        slider.addEventListener('input', (e) => {
+            const val = parseInt(e.target.value);
+            sliderPill.innerText = `Level ${val}`;
+            
+            let text = "";
+            if (val === 1) text = "Craving a Chaya";
+            else if (val <= 3) text = "Missing the Pazhavangadi vibes";
+            else if (val <= 5) text = "Thinking about Napier Museum";
+            else if (val <= 7) text = "Wishing I was stuck in Palayam traffic";
+            else if (val <= 9) text = "Crying to old Malayalam songs";
+            else text = "Ready to fight someone if they don't say 'Enthuadey'";
+            
+            sliderText.style.opacity = 0;
+            setTimeout(() => {
+                sliderText.innerText = text;
+                sliderText.style.opacity = 1;
+            }, 150);
+        });
+
+        // --- 2. Echo Chamber ---
+        const ventResponses = [
+            "Vittukalayadey! Aa landlord oru oola aane!",
+            "Endappiyee, shokam aanallo.",
+            "Enthuaadey ithu! Oru chaya kudichal theeravunna prashname ullu.",
+            "Oru Boli yum Payasavum adicha theerunna preshname ullu.",
+            "Ayyo paavam. Nammukku set aakkam appi!"
+        ];
+        function ventAction() {
+            const input = document.getElementById('vent-input');
+            if(!input.value.trim()) return;
+            const output = document.getElementById('vent-output');
+            
+            output.style.opacity = 0;
+            output.classList.remove('hidden');
+            
+            setTimeout(() => {
+                const randomQuote = ventResponses[Math.floor(Math.random() * ventResponses.length)];
+                output.innerText = randomQuote;
+                output.style.opacity = 1;
+                input.value = "";
+            }, 300);
+        }
+
+        // --- 3. Chaya Kada Gossip ---
+        const gossips = [
+            "Heard Shaji’s son got a job in Technopark. But he still goes to Mall of Travancore in his dad's Activa. Valiya jada.",
+            "They dug up the road at Sasthamangalam again. Water Authority, obviously.",
+            "Two rupees extra for the cover? What is this, Margin Free Supermarket?",
+            "Saw Geetha aunty buying 3 kilos of beef from Chalai. Someone's coming from Gelf for sure.",
+            "That new bakery near Statue... the puffs are good but they charge ₹25! Robbery dey!"
+        ];
+        function showGossip() {
+            const output = document.getElementById('gossip-text');
+            const cup = document.getElementById('tea-cup');
+            
+            output.style.opacity = 0;
+            cup.style.transform = 'scale(0.9) rotate(-5deg)';
+            
+            setTimeout(() => {
+                cup.style.transform = 'scale(1) rotate(0deg)';
+                const randomGossip = gossips[Math.floor(Math.random() * gossips.length)];
+                output.innerText = `"${randomGossip}"`;
+                output.style.opacity = 1;
+            }, 200);
+        }
+
+        // --- 4. City Fast Simulator ---
+        const gameCard = document.getElementById('game-card');
+        const passenger = document.getElementById('game-passenger');
+        const statusPill = document.getElementById('game-status-pill');
+        const brakeWarning = document.getElementById('brake-warning');
+        const gameBtn = document.getElementById('game-btn');
+        
+        let isGameRunning = false;
+        let isBraking = false;
+        let isHolding = false;
+        let gameLoopTimeout;
+        let brakeTimeout;
+
+        // Input handlers for game
+        function setHold(state) {
+            isHolding = state;
+            if(state) {
+                passenger.innerText = "🧗";
+                passenger.style.transform = "translateY(-10px)";
+                gameBtn.style.backgroundColor = "var(--accent-hover)";
+            } else {
+                passenger.innerText = "🧍";
+                passenger.style.transform = "translateY(0)";
+                gameBtn.style.backgroundColor = "transparent";
+            }
+            
+            if(!isGameRunning && state) {
+                startGame();
+            }
+        }
+
+        gameBtn.addEventListener('mousedown', () => setHold(true));
+        gameBtn.addEventListener('mouseup', () => setHold(false));
+        gameBtn.addEventListener('mouseleave', () => setHold(false));
+        gameBtn.addEventListener('touchstart', (e) => { e.preventDefault(); setHold(true); });
+        gameBtn.addEventListener('touchend', (e) => { e.preventDefault(); setHold(false); });
+
+        window.addEventListener('keydown', (e) => {
+            if(e.code === 'Space' && document.getElementById('view-cityfast').classList.contains('active')) {
+                e.preventDefault();
+                if(!isHolding) setHold(true);
+            }
+        });
+        window.addEventListener('keyup', (e) => {
+            if(e.code === 'Space') {
+                setHold(false);
+            }
+        });
+
+        function startGame() {
+            isGameRunning = true;
+            statusPill.innerText = "Driving to Statue...";
+            statusPill.style.color = "inherit";
+            gameCard.classList.remove('game-braking');
+            brakeWarning.style.opacity = 0;
+            scheduleBrake();
+        }
+
+        function scheduleBrake() {
+            if(!isGameRunning) return;
+            const delay = Math.random() * 2000 + 1000;
+            gameLoopTimeout = setTimeout(() => {
+                triggerBrake();
+            }, delay);
+        }
+
+        function triggerBrake() {
+            if(!isGameRunning) return;
+            isBraking = true;
+            gameCard.classList.add('game-braking');
+            brakeWarning.style.opacity = 1;
+            statusPill.innerText = "BRAKE!";
+            statusPill.style.color = "red";
+            
+            // Checking window
+            brakeTimeout = setTimeout(() => {
+                if(isGameRunning) {
+                    gameCard.classList.remove('game-braking');
+                    brakeWarning.style.opacity = 0;
+                    isBraking = false;
+                    
+                    if(!isHolding) {
+                        endGame(false);
+                    } else {
+                        statusPill.innerText = "Survived...";
+                        statusPill.style.color = "green";
+                        scheduleBrake();
+                    }
+                }
+            }, 800); // reaction time window
+        }
+
+        function endGame(won, silent = false) {
+            isGameRunning = false;
+            isBraking = false;
+            clearTimeout(gameLoopTimeout);
+            clearTimeout(brakeTimeout);
+            gameCard.classList.remove('game-braking');
+            brakeWarning.style.opacity = 0;
+            
+            if(!silent) {
+                statusPill.innerText = "Game Over: You flew out at Vellayambalam.";
+                statusPill.style.color = "red";
+                passenger.innerText = "💨";
+                passenger.style.transform = "translateX(50px) rotate(90deg)";
+                
+                // reset visual after a moment
+                setTimeout(() => {
+                    passenger.innerText = isHolding ? "🧗" : "🧍";
+                    passenger.style.transform = isHolding ? "translateY(-10px)" : "translateY(0)";
+                    statusPill.innerText = "Hold to Restart";
+                    statusPill.style.color = "inherit";
+                }, 2000);
+            }
+        }
+
+        // --- 5. Food Withdrawal ---
+        const foods = [
+            { emoji: "🍗", text: "Kethel's Chicken: You can't have this. Eat sad dry chicken." },
+            { emoji: "🌯", text: "Zam Zam Shawarma: Go make Maggi, appi." },
+            { emoji: "🍛", text: "Mother's Veg Plaza: Tears add good salt to your Swiggy order." },
+            { emoji: "🍰", text: "Supreme Bakery: Only empty display cases for you." }
+        ];
+        let foodIndex = 0;
+        function cycleFood() {
+            foodIndex = (foodIndex + 1) % foods.length;
+            const img = document.getElementById('food-img');
+            const desc = document.getElementById('food-desc');
+            
+            // tiny animation
+            img.style.transform = 'scale(0.9)';
+            desc.style.opacity = 0;
+            
+            setTimeout(() => {
+                img.innerText = foods[foodIndex].emoji;
+                desc.innerText = foods[foodIndex].text;
+                img.style.transform = 'scale(1)';
+                desc.style.opacity = 1;
+            }, 200);
+        }
+
+        // --- 6. Auto GPS ---
+        function hailAuto() {
+            const input = document.getElementById('auto-input');
+            const output = document.getElementById('auto-output');
+            const city = input.value.trim() || "that place";
+            
+            output.style.opacity = 0;
+            output.classList.remove('hidden');
+            
+            setTimeout(() => {
+                // Formatting per exact requirements + pill pin style for the text
+                output.innerHTML = `<div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-white border border-gray-300 rounded-full px-2 py-0.5 text-[10px] uppercase tracking-wider text-gray-500 shadow-sm">Quote</div>
+                ${city}? Athu Statue kazhinjittalle? Oru 1500 km odanam... 5000 roopa aakum. Kayaradey!`;
+                output.style.opacity = 1;
+                input.value = "";
+            }, 300);
+        }
+
+        // --- 7. City Defeater ---
+        function compareCity() {
+            const input = document.getElementById('compare-input');
+            const output = document.getElementById('compare-output');
+            const city = input.value.trim();
+            
+            if(!city) return;
+
+            output.style.opacity = 0;
+            output.classList.remove('hidden');
+            
+            setTimeout(() => {
+                output.innerHTML = `TVM is the best,<br> <span class="line-through decoration-4 decoration-red-500 opacity-50">${city}</span> is a joke.<br><span class="text-xl mt-4 block italic text-gray-500">I'm biased, get the hell out.</span>`;
+                output.style.opacity = 1;
+            }, 400);
+        }
+
+        // Initialize first view explicitly to handle edge cases in Safari
+        nav('home');
+    </script>
+</body>
+</html>
